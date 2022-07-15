@@ -1,0 +1,1 @@
+1) sock_ntop_tsd为线程安全版本的sock_ntop, 如果要使用需要修改Makefile用sock_ntop_tsd.o替换sock_ntop.o

@@ -1,0 +1,15 @@
+[archlinux]
+1)创建mqueue
+# ./mqcreate1 /temp.1234
+# ls /dev/mqueue/
+-rw-r--r-- 1 hexu hexu 80 5月  17 00:49 /dev/mqueue/temp.1234
+# ./mqcreate1 -e /temp.1234
+mq_open error for /temp.1234: File exists
+
+2)删除mqueue
+# ./mqunlink /temp.1234
+
+3)查看mqueue属性
+# ./mqcreate1 /hello.world
+# ./mqgetattr /hello.world
+max #msgs = 10, max #bytes/msg = 8192, #currently on queue = 0

@@ -1,0 +1,30 @@
+RM = rm -f
+CC = gcc
+INCLUDE = -I../../lib/
+CFLAGS = -Wall -g -O2 ${INCLUDE} -DHAVE_SYS_SHM_H -DHAVE_SYS_IPC_H
+LIBS = ../../lib/libunpipc.a -lpthread -lrt
+
+PROGS =	shmget shmrmid shmread shmreadid shmwrite limits
+
+all:	${PROGS}
+
+shmget:	shmget.o
+		${CC} ${CFLAGS} -o $@ shmget.o ${LIBS}
+
+shmrmid:	shmrmid.o
+		${CC} ${CFLAGS} -o $@ shmrmid.o ${LIBS}
+
+shmread:	shmread.o
+		${CC} ${CFLAGS} -o $@ shmread.o ${LIBS}
+
+shmreadid:	shmreadid.o
+		${CC} ${CFLAGS} -o $@ shmreadid.o ${LIBS}
+
+shmwrite:	shmwrite.o
+		${CC} ${CFLAGS} -o $@ shmwrite.o ${LIBS}
+
+limits:	limits.o
+		${CC} ${CFLAGS} -o $@ limits.o ${LIBS}
+
+clean:
+		rm -f ${PROGS} ${CLEANFILES} *.o

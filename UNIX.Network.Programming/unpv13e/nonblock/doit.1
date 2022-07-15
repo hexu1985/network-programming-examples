@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case $# in
+1)	break ;;
+*)	echo "one argument (#simultaneous connections) required" 1>&2
+	exit 1 ;;
+esac
+
+time ./web $1 127.0.0.1 / \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip \
+	/zip/a.zip
