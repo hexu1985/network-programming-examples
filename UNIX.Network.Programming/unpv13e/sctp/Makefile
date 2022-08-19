@@ -8,8 +8,8 @@ PROGS =	sctpserv01
 
 all:	${PROGS}
 
-sctpserv01:	sctpserv01.o sctp_get_no_strms.o sctp_addr_to_associd.o 
-		${CC} ${CFLAGS} -o $@ sctpserv01.o sctp_get_no_strms.o sctp_addr_to_associd.o ${LIBS}
+sctpserv01:	sctpserv01.o sctp_getnostrm.o sctp_addr_to_associd.o sctp_wrapper.o
+		${CC} ${CFLAGS} -o $@ $^ ${LIBS}
 
 clean:
 		rm -f ${PROGS} ${CLEANFILES} *.o

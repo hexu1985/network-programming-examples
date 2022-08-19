@@ -1,4 +1,4 @@
-#include	"unp.h"
+#include "unpsctp.h"
 
 int 
 sctp_get_no_strms(int sock_fd,struct sockaddr *to, socklen_t tolen)
