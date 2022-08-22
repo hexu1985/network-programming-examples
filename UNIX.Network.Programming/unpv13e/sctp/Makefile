@@ -11,7 +11,7 @@ all:	${PROGS}
 sctpserv01:	sctpserv01.o sctp_getnostrm.o sctp_addr_to_associd.o sctp_wrapper.o
 		${CC} ${CFLAGS} -o $@ $^ ${LIBS}
 
-sctpclient01: sctpclient01.o sctp_wrapper.o
+sctpclient01: sctpclient01.o sctp_strcli.o sctp_strcliecho.o sctp_wrapper.o
 		${CC} ${CFLAGS} -o $@ $^ ${LIBS}
 
 clean:

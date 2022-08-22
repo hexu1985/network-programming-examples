@@ -35,7 +35,7 @@ main(int argc, char **argv)
                 &sri,&msg_flags);
         if(stream_increment) {
             sri.sinfo_stream++;
-            if(sri.sinfo_stream >= sctp_get_no_strms(sock_fd,(SA *)&cliaddr, len)) 
+            if(sri.sinfo_stream >= sctp_get_no_strms(sock_fd,(SA *)&cliaddr, len, &sri)) 
                 sri.sinfo_stream = 0;
         }
         Sctp_sendmsg(sock_fd, readbuf, rd_sz, 
