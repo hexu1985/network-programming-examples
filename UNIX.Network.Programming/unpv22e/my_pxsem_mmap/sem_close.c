@@ -1,6 +1,6 @@
 /* include sem_close */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 int
 mysem_close(mysem_t *sem)

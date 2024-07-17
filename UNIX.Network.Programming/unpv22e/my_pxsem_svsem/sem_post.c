@@ -1,6 +1,6 @@
 /* include sem_post */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 int
 mysem_post(mysem_t *sem)

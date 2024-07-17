@@ -1,6 +1,6 @@
 /* include sem_unlink */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 int
 mysem_unlink(const char *pathname)

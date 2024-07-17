@@ -1,6 +1,6 @@
 /* include main */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 #define	NBUFF	 10
 #define	SEM_MUTEX	"mutex"	 	/* these are args to px_ipc_name() */

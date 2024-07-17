@@ -1,6 +1,6 @@
 /* include sem_open1 */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 #include	<stdarg.h>		/* for variable arg lists */
 #define		MAX_TRIES	10	/* for waiting for initialization */

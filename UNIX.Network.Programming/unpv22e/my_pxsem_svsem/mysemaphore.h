@@ -1,17 +1,19 @@
 /* include semaphoreh */
 	/* 4the fundamental datatype */
 typedef struct {
-  pthread_mutex_t	sem_mutex;	/* lock to test and set semaphore value */
-  pthread_cond_t	sem_cond;	/* for transition from 0 to nonzero */
-  unsigned int		sem_count;	/* the actual semaphore value */
-  int				sem_magic;	/* magic number if open */
+  int	sem_semid;		/* the System V semaphore ID */
+  int	sem_magic;		/* magic number if open */
 } mysem_t;
 
-#define	SEM_MAGIC	0x67458923
+#define	SEM_MAGIC	0x45678923
 
 #ifdef	SEM_FAILED
 #undef	SEM_FAILED
+#endif
 #define	SEM_FAILED	((mysem_t *)(-1))	/* avoid compiler warnings */
+
+#ifndef	SEMVMX
+#define	SEMVMX	32767		/* historical System V max value for sem */
 #endif
 /* end semaphoreh */
 

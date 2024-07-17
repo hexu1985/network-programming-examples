@@ -1,5 +1,5 @@
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 #define	NAME	"testeintr"
 

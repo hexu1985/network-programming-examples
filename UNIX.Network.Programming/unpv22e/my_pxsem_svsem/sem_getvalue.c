@@ -1,6 +1,6 @@
 /* include sem_getvalue */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 int
 mysem_getvalue(mysem_t *sem, int *pvalue)

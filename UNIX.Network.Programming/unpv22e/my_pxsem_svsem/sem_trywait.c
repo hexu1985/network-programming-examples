@@ -1,6 +1,6 @@
 /* include sem_trywait */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 int
 mysem_trywait(mysem_t *sem)

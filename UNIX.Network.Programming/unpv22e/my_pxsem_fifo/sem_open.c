@@ -1,6 +1,6 @@
 /* include sem_open */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 #include	<stdarg.h>		/* for variable arg lists */
 

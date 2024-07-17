@@ -3,7 +3,7 @@
  */
 /* include main */
 #include	"unpipc.h"
-#include	"semaphore.h"
+#include	"mysemaphore.h"
 
 #define	SEM1	"sem1"	 	/* these are args to px_ipc_name() */
 #define	SEM2	"sem2"

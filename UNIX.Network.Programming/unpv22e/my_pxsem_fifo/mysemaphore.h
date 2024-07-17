@@ -9,8 +9,8 @@ typedef struct {
 
 #ifdef	SEM_FAILED
 #undef	SEM_FAILED
-#define	SEM_FAILED	((mysem_t *)(-1))	/* avoid compiler warnings */
 #endif
+#define	SEM_FAILED	((mysem_t *)(-1))	/* avoid compiler warnings */
 /* end semaphoreh */
 
 	/* 4our functions */

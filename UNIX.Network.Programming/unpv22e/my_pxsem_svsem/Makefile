@@ -1,7 +1,7 @@
 RM = rm -f
 CC = gcc
 INCLUDE = -I../../lib/
-CFLAGS = -Wall -g -O2 ${INCLUDE} -DHAVE_SEMAPHORE_H -DHAVE_SYS_SEM_H
+CFLAGS = -Wall -g -O2 ${INCLUDE} -DHAVE_SYS_SEM_H
 LIBS = ../../lib/libunpipc.a -lpthread -lrt
 
 PROGS =	prodcons1 testsem testeintr
