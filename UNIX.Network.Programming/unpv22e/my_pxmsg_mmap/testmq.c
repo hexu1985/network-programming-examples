@@ -1,5 +1,5 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 #define	BUFFLEN		100
 char	msg[BUFFLEN];				/* receive buffer */
@@ -52,7 +52,7 @@ main(int argc, char **argv)
 		/***************************************************************/
 		/* check O_EXCL */
 	mqd = mymq_open(argv[1], O_CREAT | O_EXCL | O_RDWR, FILE_MODE, NULL);
-	if (mqd != (mqd_t) -1 || errno != EEXIST)
+	if (mqd != (mymqd_t) -1 || errno != EEXIST)
 		err_sys("mq_open returned %d", rc);
 	Mymq_unlink(argv[1]);
 

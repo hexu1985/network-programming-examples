@@ -1,5 +1,5 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 main(int argc, char **argv)

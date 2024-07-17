@@ -1,11 +1,11 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 main(int argc, char **argv)
 {
 	int		c, flags;
-	mqd_t	mqd;
+	mymqd_t	mqd;
 	size_t	n;
 	uint_t	prio;
 	void	*buff;

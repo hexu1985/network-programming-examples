@@ -1,6 +1,6 @@
 /* include mq_send1 */
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 mymq_send(mymqd_t mqd, const char *ptr, size_t len, unsigned int prio)

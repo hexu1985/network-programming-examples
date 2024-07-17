@@ -1,10 +1,10 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 main(int argc, char **argv)
 {
-	mqd_t	mqd;
+	mymqd_t	mqd;
 	struct mymq_attr	attr;
 
 	if (argc != 2)

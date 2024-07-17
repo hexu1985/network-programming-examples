@@ -1,6 +1,6 @@
 /* include mq_unlink */
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 mymq_unlink(const char *pathname)

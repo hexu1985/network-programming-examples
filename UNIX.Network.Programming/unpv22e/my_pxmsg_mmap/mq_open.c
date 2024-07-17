@@ -1,6 +1,6 @@
 /* include mq_open1 */
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 #include	<stdarg.h>
 #define		MAX_TRIES	10	/* for waiting for initialization */

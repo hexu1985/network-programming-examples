@@ -1,5 +1,5 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 mymqd_t	mqd;
 struct sigevent	sigev;

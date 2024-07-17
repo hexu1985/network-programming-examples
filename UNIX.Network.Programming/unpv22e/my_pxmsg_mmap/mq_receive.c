@@ -1,6 +1,6 @@
 /* include mq_receive1 */
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 ssize_t
 mymq_receive(mymqd_t mqd, char *ptr, size_t maxlen, unsigned int *priop)

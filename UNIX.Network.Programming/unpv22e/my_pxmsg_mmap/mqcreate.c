@@ -1,13 +1,13 @@
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
-struct mq_attr	attr;	/* mq_maxmsg and mq_msgsize both init to 0 */
+struct mymq_attr	attr;	/* mq_maxmsg and mq_msgsize both init to 0 */
 
 int
 main(int argc, char **argv)
 {
 	int		c, flags;
-	mqd_t	mqd;
+	mymqd_t	mqd;
 
 	flags = O_RDWR | O_CREAT;
 	while ( (c = Getopt(argc, argv, "em:z:")) != -1) {

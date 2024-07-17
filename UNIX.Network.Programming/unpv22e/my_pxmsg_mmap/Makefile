@@ -1,7 +1,7 @@
 RM = rm -f
 CC = gcc
 INCLUDE = -I../../lib/
-CFLAGS = -Wall -g -O2 ${INCLUDE} -DHAVE_MQUEUE_H 
+CFLAGS = -Wall -g -O2 ${INCLUDE} #-DHAVE_MQUEUE_H 
 LIBS = ../../lib/libunpipc.a -lpthread -lrt
 
 PROGS =	testmq test1 \
@@ -21,11 +21,12 @@ testmq:	testmq.o ${FUNCS}
 # Posix IPC name.
 
 test1.c:	testmq.c
-		sed -e 's/Mymq_/Mq_/g' \
+		sed -e '1i#define HAVE_MQUEUE_H' \
+			-e 's/Mymq_/Mq_/g' \
 			-e 's/mymq_/mq_/g' \
 			-e 's/mymqd_t/mqd_t/g' \
 			-e 's/<pathname>/<name>/' \
-			-e '/mqueue.h/d' < testmq.c > test1.c
+			-e '/mymqueue.h/d' < testmq.c > test1.c
 test1:	test1.o
 		${CC} ${CFLAGS} -o $@ test1.o ${LIBS}
 

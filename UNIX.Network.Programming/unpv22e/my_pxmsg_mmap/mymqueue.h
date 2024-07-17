@@ -1,3 +1,5 @@
+#pragma once
+
 /* include mqueueh */
 typedef struct mymq_info	*mymqd_t;		/* opaque datatype */
 

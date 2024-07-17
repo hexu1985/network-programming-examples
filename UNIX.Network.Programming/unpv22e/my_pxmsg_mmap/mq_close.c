@@ -1,6 +1,6 @@
 /* include mq_close */
 #include	"unpipc.h"
-#include	"mqueue.h"
+#include	"mymqueue.h"
 
 int
 mymq_close(mymqd_t mqd)

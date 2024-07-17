@@ -1,3 +1,4 @@
+#define HAVE_MQUEUE_H
 #include	"unpipc.h"
 
 #define	BUFFLEN		100
