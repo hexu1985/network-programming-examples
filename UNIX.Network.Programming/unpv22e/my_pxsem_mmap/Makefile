@@ -4,7 +4,7 @@ INCLUDE = -I../../lib/
 CFLAGS = -Wall -g -O2 ${INCLUDE} 
 LIBS = ../../lib/libunpipc.a -lpthread -lrt
 
-PROGS =	prodcons1 testsem testeintr
+PROGS =	prodcons1 prodcons3 testsem testeintr
 FUNCS = sem_close.o sem_getvalue.o sem_open.o sem_post.o \
 		sem_trywait.o sem_unlink.o sem_wait.o
 
@@ -12,6 +12,9 @@ all:	${PROGS}
 
 prodcons1:	prodcons1.o ${FUNCS}
 		${CC} ${CFLAGS} -o $@ prodcons1.o ${FUNCS} ${LIBS}
+
+prodcons3:	prodcons3.o ${FUNCS}
+		${CC} ${CFLAGS} -o $@ prodcons3.o ${FUNCS} ${LIBS}
 
 testsem:	testsem.o ${FUNCS}
 		${CC} ${CFLAGS} -o $@ testsem.o ${FUNCS} ${LIBS}
