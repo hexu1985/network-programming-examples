@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Python Network Programming Cookbook -- Chapter - 3
 # This program is optimized for Python 2.7.
 # It may run on any other version with/without modifications.
@@ -14,27 +14,27 @@ def run_unix_domain_socket_client():
     
     # Connect the socket to the path where the server is listening
     server_address = SERVER_PATH 
-    print "connecting to %s" % server_address
+    print("connecting to %s" % server_address)
     try:
         sock.connect(server_address)
-    except socket.error, msg:
-        print >>sys.stderr, msg
+    except socket.error as msg:
+        print(msg, file=sys.stderr)
         sys.exit(1)
     
     try:
         message = "This is the message.  This will be echoed back!"
-        print  "Sending [%s]" %message
-        sock.sendall(message)
+        print("Sending [%s]" %message)
+        sock.sendall(message.encode('ascii'))
         amount_received = 0
         amount_expected = len(message)
         
         while amount_received < amount_expected:
             data = sock.recv(16)
             amount_received += len(data)
-            print >>sys.stderr, "Received [%s]" % data
+            print("Received [%s]" % data, file=sys.stderr)
     
     finally:
-        print "Closing client"
+        print("Closing client")
         sock.close()
 
 if __name__ == '__main__':
