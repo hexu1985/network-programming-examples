@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Python Network Programming Cookbook -- Chapter - 1
 # This program is optimized for Python 2.7.
 # It may run on any other version with/without modifications.
