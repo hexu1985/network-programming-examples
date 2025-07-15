@@ -8,9 +8,14 @@
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <sys/sysctl.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
+
+#ifdef __linux__
+#include <linux/sysctl.h>
+#else
+#include <sys/sysctl.h>
+#endif
 
 #ifdef	HAVE_MQUEUE_H
 # include	<mqueue.h>		/* Posix message queues */

@@ -719,7 +719,11 @@ Sysconf(int name)
 #ifdef	HAVE_SYS_SYSCTL_H
 
 #include	<sys/param.h>
-#include	<sys/sysctl.h>
+#ifdef __linux__
+#include <linux/sysctl.h>
+#else
+#include <sys/sysctl.h>
+#endif
 
 void
 Sysctl(int *name, u_int namelen, void *oldp, size_t *oldlenp,
