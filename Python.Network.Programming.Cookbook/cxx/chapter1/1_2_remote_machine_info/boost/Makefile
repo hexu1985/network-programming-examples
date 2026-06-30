@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++11 -I${HOME}/local/asio/include -DASIO_STANDALONE
-LDFLAGS = 
-LDLIBS = 
+CXXFLAGS = -Wall -std=c++11 -I${HOME}/local/boost/include
+LDFLAGS = -L${HOME}/local/boost/lib
+LDLIBS = #-lboost_system
 
 SOURCES = $(shell ls *.cpp)
 PROGRAMS = $(patsubst %.cpp,%,$(SOURCES))

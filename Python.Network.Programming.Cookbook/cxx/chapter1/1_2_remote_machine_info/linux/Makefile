@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++11 -I${HOME}/local/asio/include -DASIO_STANDALONE
+CXXFLAGS = -Wall -std=c++11 -fsanitize=address -fno-omit-frame-pointer
 LDFLAGS = 
-LDLIBS = 
+LDLIBS = -lasan
 
 SOURCES = $(shell ls *.cpp)
 PROGRAMS = $(patsubst %.cpp,%,$(SOURCES))
