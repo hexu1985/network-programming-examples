@@ -5,3 +5,6 @@
 - [将IPv4地址转换成不同的格式](1_3_ip4_address_conversion)
 - [通过指定的端口和协议找到服务名](1_4_finding_service_name)
 - [主机字节序和网络字节序之间相互转换](1_5_integer_conversion)
+- [设定并获取默认的套接字超时时间](1_6_socket_timeout)
+
+
