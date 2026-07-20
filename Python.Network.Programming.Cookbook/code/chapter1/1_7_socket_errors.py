@@ -3,6 +3,10 @@
 # This program is optimized for Python 2.7.
 # It may run on any other version with/without modifications.
 
+#!/usr/bin/env python3
+# Python Network Programming Cookbook -- Chapter - 1
+# This program is optimized for Python 3.
+
 import sys
 import socket
 import argparse 
@@ -22,38 +26,39 @@ def main():
     # First try-except block -- create socket 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    except socket.error, e:
-        print "Error creating socket: %s" % e
+    except socket.error as e:
+        print(f"Error creating socket: {e}")
         sys.exit(1)
     
     # Second try-except block -- connect to given host/port
     try:
         s.connect((host, port))
-    except socket.gaierror, e:
-        print "Address-related error connecting to server: %s" % e
+    except socket.gaierror as e:
+        print(f"Address-related error connecting to server: {e}")
         sys.exit(1)
-    except socket.error, e:
-        print "Connection error: %s" % e
+    except socket.error as e:
+        print(f"Connection error: {e}")
         sys.exit(1)
     
     # Third try-except block -- sending data
     try:
-        s.sendall("GET %s HTTP/1.0\r\n\r\n" % filename)
-    except socket.error, e:
-        print "Error sending data: %s" % e
+        # 在Python 3中，sendall需要bytes类型，所以需要编码
+        s.sendall(f"GET {filename} HTTP/1.0\r\n\r\n".encode('utf-8'))
+    except socket.error as e:
+        print(f"Error sending data: {e}")
         sys.exit(1)
     
-    while 1:
-        # Fourth tr-except block -- waiting to receive data from remote host
+    while True:
+        # Fourth try-except block -- waiting to receive data from remote host
         try:
             buf = s.recv(2048)
-        except socket.error, e:
-            print "Error receiving data: %s" % e
+        except socket.error as e:
+            print(f"Error receiving data: {e}")
             sys.exit(1)
         if not len(buf):
             break
-        # write the received data
-        sys.stdout.write(buf) 
+        # write the received data - 需要解码为字符串
+        sys.stdout.write(buf.decode('utf-8'))
     
 if __name__ == '__main__':
     main()
