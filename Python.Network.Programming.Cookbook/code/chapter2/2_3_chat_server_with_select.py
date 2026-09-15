@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # Python Network Programming Cookbook -- Chapter - 2
-# This program is optimized for Python 2.7.
-# It may run on any other version with/without modifications.
+# This program is optimized for Python 3.
 
 import select
 import socket
 import sys
 import signal
-import cPickle
+import pickle
 import struct
 import argparse
 
@@ -16,9 +15,9 @@ CHAT_SERVER_NAME = 'server'
 
 # Some utilities
 def send(channel, *args):
-    buffer = cPickle.dumps(args)
+    buffer = pickle.dumps(args)
     value = socket.htonl(len(buffer))
-    size = struct.pack("L",value)
+    size = struct.pack("L", value)
     channel.send(size)
     channel.send(buffer)
 
@@ -27,12 +26,12 @@ def receive(channel):
     size = channel.recv(size)
     try:
         size = socket.ntohl(struct.unpack("L", size)[0])
-    except struct.error, e:
+    except struct.error as e:
         return ''
-    buf = ""
+    buf = b""
     while len(buf) < size:
-        buf = channel.recv(size - len(buf))
-    return cPickle.loads(buf)[0]
+        buf += channel.recv(size - len(buf))
+    return pickle.loads(buf)[0]
 
 
 class ChatServer(object):
@@ -40,22 +39,22 @@ class ChatServer(object):
     def __init__(self, port, backlog=5):
         self.clients = 0
         self.clientmap = {}
-        self.outputs = [] # list output sockets
+        self.outputs = []  # list output sockets
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server.bind((SERVER_HOST, port))
-        print 'Server listening to port: %s ...' %port
+        print('Server listening to port: %s ...' % port)
         self.server.listen(backlog)
         # Catch keyboard interrupts
         signal.signal(signal.SIGINT, self.sighandler)
-        
+
     def sighandler(self, signum, frame):
         """ Clean up client outputs"""
         # Close the server
-        print 'Shutting down server...'
+        print('Shutting down server...')
         # Close existing client sockets
         for output in self.outputs:
-            output.close()            
+            output.close()
         self.server.close()
 
     def get_client_name(self, client):
@@ -63,7 +62,7 @@ class ChatServer(object):
         info = self.clientmap[client]
         host, name = info[0][0], info[1]
         return '@'.join((name, host))
-        
+
     def run(self):
         inputs = [self.server, sys.stdin]
         self.outputs = []
@@ -71,17 +70,17 @@ class ChatServer(object):
         while running:
             try:
                 readable, writeable, exceptional = select.select(inputs, self.outputs, [])
-            except select.error, e:
+            except select.error as e:
                 break
 
             for sock in readable:
                 if sock == self.server:
                     # handle the server socket
                     client, address = self.server.accept()
-                    print "Chat server: got connection %d from %s" % (client.fileno(), address)
+                    print("Chat server: got connection %d from %s" % (client.fileno(), str(address)))
                     # Read the login name
                     cname = receive(client).split('NAME: ')[1]
-                    
+
                     # Compute client name and send back
                     self.clients += 1
                     send(client, 'CLIENT: ' + str(address[0]))
@@ -109,7 +108,7 @@ class ChatServer(object):
                                 if output != sock:
                                     send(output, msg)
                         else:
-                            print "Chat server: %d hung up" % sock.fileno()
+                            print("Chat server: %d hung up" % sock.fileno())
                             self.clients -= 1
                             sock.close()
                             inputs.remove(sock)
@@ -117,9 +116,9 @@ class ChatServer(object):
 
                             # Sending client leaving information to others
                             msg = "\n(Now hung up: Client from %s)" % self.get_client_name(sock)
-                            for output in self.outputs:                                
-                                send(output, msg)                                
-                    except socket.error, e:
+                            for output in self.outputs:
+                                send(output, msg)
+                    except socket.error as e:
                         # Remove
                         inputs.remove(sock)
                         self.outputs.remove(sock)
@@ -135,21 +134,21 @@ class ChatClient(object):
         self.host = host
         self.port = port
         # Initial prompt
-        self.prompt='[' + '@'.join((name, socket.gethostname().split('.')[0])) + ']> '
+        self.prompt = '[' + '@'.join((name, socket.gethostname().split('.')[0])) + ']> '
         # Connect to server at port
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.connect((host, self.port))
-            print "Now connected to chat server@ port %d" % self.port
+            print("Now connected to chat server@ port %d" % self.port)
             self.connected = True
             # Send my name...
-            send(self.sock,'NAME: ' + self.name) 
+            send(self.sock, 'NAME: ' + self.name)
             data = receive(self.sock)
             # Contains client address, set it
             addr = data.split('CLIENT: ')[1]
             self.prompt = '[' + '@'.join((self.name, addr)) + ']> '
-        except socket.error, e:
-            print "Failed to connect to chat server @ port %d" % self.port
+        except socket.error as e:
+            print("Failed to connect to chat server @ port %d" % self.port)
             sys.exit(1)
 
     def run(self):
@@ -159,23 +158,24 @@ class ChatClient(object):
                 sys.stdout.write(self.prompt)
                 sys.stdout.flush()
                 # Wait for input from stdin and socket
-                readable, writeable,exceptional = select.select([0, self.sock], [],[])
+                readable, writeable, exceptional = select.select([0, self.sock], [], [])
                 for sock in readable:
                     if sock == 0:
                         data = sys.stdin.readline().strip()
-                        if data: send(self.sock, data)
+                        if data:
+                            send(self.sock, data)
                     elif sock == self.sock:
                         data = receive(self.sock)
                         if not data:
-                            print 'Client shutting down.'
-                            self.connected = False 
+                            print('Client shutting down.')
+                            self.connected = False
                             break
                         else:
                             sys.stdout.write(data + '\n')
                             sys.stdout.flush()
-                            
+
             except KeyboardInterrupt:
-                print " Client interrupted. """
+                print(" Client interrupted. ")
                 self.sock.close()
                 break
 
@@ -184,7 +184,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Socket Server Example with Select')
     parser.add_argument('--name', action="store", dest="name", required=True)
     parser.add_argument('--port', action="store", dest="port", type=int, required=True)
-    given_args = parser.parse_args() 
+    given_args = parser.parse_args()
     port = given_args.port
     name = given_args.name
     if name == CHAT_SERVER_NAME:
@@ -193,4 +193,3 @@ if __name__ == "__main__":
     else:
         client = ChatClient(name=name, port=port)
         client.run()
-    
